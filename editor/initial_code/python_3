@@ -1,3 +1,33 @@
 class ConsistentHash():
-    def __init__(self, slots):
+    def __init__(self, initial_slots=None):
         raise NotImplementedError
+
+    def get(self, integer_key):
+        raise NotImplementedError
+
+    def add(self, slot):
+        raise NotImplementedError
+
+    def remove(self, slot):
+        raise NotImplementedError
+
+if __name__ == "__main__":
+    #This part is using only for the local testing
+
+    #Constructor
+    ConsistentHash()
+    ConsistentHash(["a", "b", "c"])
+    ConsistentHash({"a", "b", "c"})
+    ConsistentHash(chr(x) for x in range(97, 123))
+
+    #slots
+    cs = ConsistentHash()
+    assert cs.slots == {}, "Empty slots"
+    cs = ConsistentHash(["a", "b", "c"])
+    assert cs.slots == {"a", "b", "c"}, "Slots from a list"
+    cs = ConsistentHash(chr(x) for x in range(97, 123))
+    assert cs.slots == {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+                        'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}, "Slots from a list"
+
+

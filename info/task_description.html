@@ -1,34 +1,113 @@
 <p>
-    <i>( Describe task in general )</i>
+    Consistent hashing is a special kind of hashing such that when a hash table is resized
+    and consistent hashing is used,
+    only <strong>K/n</strong> keys need to be remapped on average,
+    where <strong>K</strong> is the number of keys, and <strong>n</strong> is the number of slots.
 </p>
 
 <p>
-    Sum two passed ints
-</p>
-
-<p style="text-align: center;">
-    <img class="for_info_only" title="example" src="{{MEDIA}}example.png" alt="example" width="392px"/>
-    <img class="for_editor_only" title="example" src="{{MEDIA}}example.png" alt="example" width="380px"/>
-</p>
-
-<p><i>( Explain input and output values )</i></p>
-<p>
-    <strong>Input: </strong> Two arguments. Both are int
+    In this task you should write a class for the consistent hash.
+    This object store a set of slots (strings) and return one these slots by keys (integers).
+    The distribution should be even -- for the <strong>n</strong> consecutive keys we should get all slots.
+    The same set of the slots should generate the same key-slots relations.
+    Thus if two objects (or a new object) have the same slots, then they return the same slot for the same key.
+    The slots are unique (a set).
 </p>
 
 <p>
-    <strong>Output: </strong> Int. 
+    We can add and remove slots from the object and after this no more than <strong>K/n</strong> (round up) keys should
+    be changed.
 </p>
 
+<div>
+    The class have the follow interface:<br>
 
+    <div>
+        <strong>class ConsistentHash()</strong><br>
+        <strong>class ConsistentHash(slots)</strong>
 
-<div class="for_info_only">
-    <p><i>( Put some usage examples )</i></p>
-    <p>
-        <strong>Example:</strong>
-    </p>
-    <pre class="brush: python">
-checkio(3, 2) == 5
-checkio(5, 7) == 12
-    </pre>
+        <div style="padding-left: 20px">
+            Create an instance with an empty set of slots or from a list, tuple, set or other iterable of strings.
+            If any element of the slots is not a string, then raise ValueError (any message).<br>
+            <pre class="brush: python">>>> empty_ch = ConsistentHash()
+>>> from_list_ch = ConsistentHash(["a", "b", "c"])
+>>> from_set_ch = ConsistentHash({"z", "x"})
+>>> from_iterable_ch = ConsistentHash(chr(x) for x in range(97, 123))
+>>> ConsistentHash(["za", 1])
+ValueError: The wrong element.
+            </pre>
+
+        </div>
+
+        <strong>slots</strong><br>
+
+        <div style="padding-left: 20px">
+            Return the set of slots.<br>
+            <pre class="brush: python">>>> ConsistentHash(["a", "b"]).slots
+{"a", "b"}
+>>> ConsistentHash().slots
+{}
+</pre>
+
+        </div>
+
+        <strong>get(integer)</strong><br>
+
+        <div style="padding-left: 20px">
+            Return one of the slots. If slots are empty, then return None.<br>
+            <pre class="brush: python">>>> cs = ConsistentHash(["a", "b"])
+>>> cs.get(0)
+"a"
+>>> cs.get(1)
+"b"
+>>> ConsistentHash().get(1)
+None
+>>> cs.get("a")
+ValueError: A key is a integer.</pre>
+
+        </div>
+
+        <strong>add(string)</strong><br>
+
+        <div style="padding-left: 20px">
+            Add a slot in the set. If this slot already exist, then the object is not changed.
+            If the new slot is not a string, then raise ValueError.<br>
+            <pre class="brush: python">>>> cs = ConsistentHash(["a", "b"])
+>>> cs.add("c")
+>>> cs.slots
+{"a", "b", "c"}
+>>> cs.add("a")
+>>> cs.slots
+{"a", "b", "c"}
+>>> cs.add(4)
+ValueError: A slot is a string.
+</pre>
+
+        </div>
+
+        <strong>remove(string)</strong><br>
+
+        <div style="padding-left: 20px">
+            Remove a slot from the set. If this slot is not in the set, then raise ValueError.
+            <pre class="brush: python">>>> cs = ConsistentHash(["a", "b"])
+>>> cs.remove("a")
+>>> cs.slots
+{"a"}
+>>> cs.remove("c")
+ValueError: "c" is not in the set.
+</pre>
+
+        </div>
+
+    </div>
 </div>
+
+<p>
+    <strong>The solution is testing with using of various codes and asserts.</strong>
+</p>
+<p>
+    <strong>Examples: </strong>
+    <pre>
+
+    </pre>
+</p>
